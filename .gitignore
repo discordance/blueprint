@@ -50,6 +50,7 @@ node_modules
 **/VisualStudio2017/x64
 **/Builds/x64
 **/.vs
+**/.vscode
 **/CodeBlocks/bin
 **/CodeBlocks/obj
 **/CodeBlocks/*.depend
