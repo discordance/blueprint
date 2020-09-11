@@ -28,12 +28,17 @@ namespace blueprint
         /** Another little helper for DynamicObject construction. */
         juce::var makeViewEventObject (const juce::MouseEvent& me)
         {
+            // @TODO get all modifiers
+            auto modifiers = juce::ModifierKeys::getCurrentModifiers();
+            bool rightClick = modifiers.isRightButtonDown();
+
             // TODO: Get all of it!
             return makeViewEventObject({
                 {"x", me.x},
                 {"y", me.y},
                 {"screenX", me.getScreenX()},
                 {"screenY", me.getScreenY()},
+                {"rightClick", rightClick},
             });
         }
 
@@ -210,6 +215,21 @@ namespace blueprint
     void View::mouseDoubleClick (const juce::MouseEvent& e)
     {
         dispatchViewEvent("onMouseDoubleClick", detail::makeViewEventObject(e));
+    }
+
+    void View::mouseEnter (const juce::MouseEvent& e)
+    {
+        dispatchViewEvent("onMouseEnter", detail::makeViewEventObject(e));
+    }
+
+    void View::mouseExit (const juce::MouseEvent& e)
+    {
+        dispatchViewEvent("onMouseExit", detail::makeViewEventObject(e));
+    }
+
+    void View::mouseMove (const juce::MouseEvent& e)
+    {
+        dispatchViewEvent("onMouseMove", detail::makeViewEventObject(e));
     }
 
     bool View::keyPressed (const juce::KeyPress& key)

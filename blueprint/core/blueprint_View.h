@@ -72,6 +72,15 @@ namespace blueprint
         /** Dispatches a mouseDoubleClick event to the React application. */
         void mouseDoubleClick (const juce::MouseEvent& e) override;
 
+        /** Disptaches a mouseEnter event to the React application. */
+        void mouseEnter (const juce::MouseEvent& e) override;
+
+        /** Disptaches a mouseExit event to the React application. */
+        void mouseExit (const juce::MouseEvent& e) override;
+
+        /** Disptaches a mouseMove event to the React application. */
+        void mouseMove (const juce::MouseEvent& e) override;
+
         /** Dispatches a keyPress event to the React application. */
         bool keyPressed (const juce::KeyPress& e) override;
 
