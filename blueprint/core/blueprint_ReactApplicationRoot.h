@@ -219,6 +219,42 @@ namespace blueprint
             }
         }
 
+        //==============================================================================
+        /**
+         * Evaluates a javascript string file in the Ecmascript engine.
+         * This is only useful in Release mode, when no hot releoad is needed.
+         * Useful to to distribute apps.
+         **/
+        juce::var evaluateString(const juce::String& bundleStr)
+        {
+            JUCE_ASSERT_MESSAGE_THREAD
+
+            // Clear error state from previous js evals
+            errorText.reset();
+
+            try
+            {
+                // Register internal React.js backend rendering methods
+                registerNativeRenderingHooks();
+
+                if (beforeBundleEval)
+                    beforeBundleEval(juce::File());
+
+                auto result = engine.evaluate(bundleStr);
+
+                if (afterBundleEval)
+                    afterBundleEval(juce::File());
+
+                return result;
+            }
+            catch (const EcmascriptEngine::Error& err)
+            {
+                handleRuntimeError(err);
+                return juce::var();
+            }
+        }
+
+
         /** Dispatches an event through Blueprint's EventBridge. */
         template <typename... T>
         void dispatchEvent (const juce::String& eventType, T... args)
