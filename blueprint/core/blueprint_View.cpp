@@ -30,12 +30,14 @@ namespace blueprint
         {
             // @TODO get all modifiers
             auto modifiers = juce::ModifierKeys::getCurrentModifiers();
-            bool rightClick = modifiers.isRightButtonDown();
+            bool rightClick = modifiers.isPopupMenu();
 
             // TODO: Get all of it!
             return makeViewEventObject({
                 {"x", me.x},
                 {"y", me.y},
+                {"mouseDownX", me.getMouseDownX()},
+                {"mouseDownY", me.getMouseDownY()},
                 {"screenX", me.getScreenX()},
                 {"screenY", me.getScreenY()},
                 {"rightClick", rightClick},
